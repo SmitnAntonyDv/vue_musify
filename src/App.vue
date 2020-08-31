@@ -10,8 +10,8 @@
           <span>{{currentSong.artist}}</span>
           <div class="controls">
             <button class="prev">prev</button>
-            <button class="play">play</button>
-            <button class="play">pauze</button>
+            <button class="play" v-if="!isActive" v-on:click="play">play</button>
+            <button class="play" v-else v-on:click="pause">pauze</button>
             <button class="next">next</button>
           </div>
         </h2>
@@ -27,6 +27,7 @@ export default {
     return {
       currentSong: {},
       index: 0,
+      isActive: false,
       songs: [
         {
           title: "Energy",
@@ -55,6 +56,20 @@ export default {
     this.currentSong = this.songs[this.index];
     this.player.src = this.currentSong.src;
     // this.player.play();
+  },
+  methods: {
+    play(song) {
+      if (typeof song.src != "undefined") {
+        this.currentSong = song;
+        this.player.src = this.currentSong.src;
+      }
+      this.player.play();
+      this.isActive = true;
+    },
+    pause() {
+      this.player.pause();
+      this.isActive = false;
+    },
   },
 };
 </script>
