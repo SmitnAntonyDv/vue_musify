@@ -5,7 +5,16 @@
     </header>
     <main>
       <section class="player">
-        <h2 class="song-title">{{currentSong.title}}</h2>
+        <h2 class="song-title">
+          {{currentSong.title}} -
+          <span>{{currentSong.artist}}</span>
+          <div class="controls">
+            <button class="prev">prev</button>
+            <button class="play">play</button>
+            <button class="play">pauze</button>
+            <button class="next">next</button>
+          </div>
+        </h2>
       </section>
     </main>
   </div>
@@ -16,30 +25,36 @@ export default {
   name: "App",
   data() {
     return {
-      currentSong: {
-        title: "TESTING TITLE",
-      },
+      currentSong: {},
+      index: 0,
       songs: [
         {
           title: "Energy",
-          provider: "Ben-Sound.com",
+          artist: "Ben-Sound.com",
           type: "royalty-free",
           src: require(`./assets/Energy.mp3`),
         },
         {
           title: "Inspire",
-          provider: "Ben-Sound.com",
+          artist: "Ben-Sound.com",
           type: "royalty-free",
           src: require(`./assets/Inspire.mp3`),
         },
         {
           title: "Newdawn",
-          provider: "Ben-Sound.com",
+          artist: "Ben-Sound.com",
           type: "royalty-free",
           src: require(`./assets/Newdawn.mp3`),
         },
       ],
+      // Html5 new audio file function that allows for playing audio in browser
+      player: new Audio(),
     };
+  },
+  created() {
+    this.currentSong = this.songs[this.index];
+    this.player.src = this.currentSong.src;
+    // this.player.play();
   },
 };
 </script>
